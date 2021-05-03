@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Core;
@@ -65,22 +66,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        //     [HttpPut("{id}")] 
-        // public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDto vehicleResource)
-        // {
-        //     if (!ModelState.IsValid)
-        //       return BadRequest(ModelState);
-
-        //     var vehicle = await _appDbContext.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
-        //     _mapper.Map<VehicleDto, Vehicle>(vehicleResource, vehicle);
-        //     vehicle.LastUpdate = DateTime.Now;
-
-        //     await _appDbContext.SaveChangesAsync();
-
-        //     var result = _mapper.Map<Vehicle, VehicleDto>(vehicle);
-
-        //     return Ok(result);
-        // }
+        
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
@@ -109,5 +95,13 @@ namespace API.Controllers
 
             return Ok(id);
         }
+
+    [HttpGet("get-vehicles")]
+    public async Task<IEnumerable<VehicleDto>> GetVehicles()
+    {
+      var vehicles = await _vehicleRepository.GetVehicles();
+
+      return _mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleDto>>(vehicles);
+    }
     }
 }

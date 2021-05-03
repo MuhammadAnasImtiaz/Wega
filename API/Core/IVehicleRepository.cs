@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Entities;
 
@@ -7,7 +8,7 @@ namespace API.Core
     {
         Task<Vehicle> GetVehicle(int id);
         void Add (Vehicle vehicle);
-
         void Remove (Vehicle vehicle);
+        Task<IEnumerable<Vehicle>> GetVehicles();
     }
 }
